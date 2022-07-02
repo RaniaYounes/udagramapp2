@@ -1,5 +1,11 @@
 # Hosting a Full-Stack Application
-
+end point
+udagram.ckaufubszbcj.us-east-1.rds.amazonaws.com
+sever
+http://udagram-n-env.eba-gddmqvym.us-east-1.elasticbeanstalk.com/
+ 
+front end
+http://udagramapp01.s3-website-us-east-1.amazonaws.com
 ### **You can use you own project completed in previous courses or use the provided Udagram app for completing this final project.**
 
 ---
