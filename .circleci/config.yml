@@ -16,29 +16,24 @@ jobs:
           node-version: '14.15'         
       - checkout
       # Use root level package.json to install dependencies in the frontend app
+    - run:
+          name: Install Front-End
+          command: npm run install:frontend
       - run:
-          name: Install Front-End Dependencies
-          command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
-            npm run frontend:install
-      # TODO: Install dependencies in the the backend API          
+          name: Install Back-end
+          command: npm run install:backend
       - run:
-          name: Install API Dependencies
-          command: npm run api:install
-      # TODO: Lint the frontend
-     
-      # TODO: Build the frontend app
+          name: Build Front-End
+          command: npm run build:frontend
       - run:
-          name: Front-End Build
-          command: npm run frontend:build
-      # TODO: Build the backend API      
+          name: Build Back-end
+          command: npm run build:backend
       - run:
-          name: API Build
-          command: npm run api:build
-  # deploy step will run only after manual approval
+          name: Deploy Front-End
+          command: npm run deploy:frontend
+      - run:
+          name: Deploy Back-end
+          command: npm run deploy:backend
   deploy:
     docker:
       - image: "cimg/base:stable"
@@ -61,17 +56,10 @@ jobs:
            
             
 workflows:
-  udagram:
-    jobs:
-      - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - master
-          type: approval
-          requires:
-            - build
-      - deploy:
-          requires:
-            - hold
+    build-deploy:
+      jobs:
+        - build:
+            filters:
+              branches:
+                only: 
+                  - master
